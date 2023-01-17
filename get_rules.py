@@ -16,20 +16,19 @@ def csv_setup(sub):
     with open(filename, 'w') as file:
         writer = csv.writer(file)
         writer.writerow(['priority', 'created', 'kind', 'short_name', 'description', 'violation_reason'])
-    print(f'Created {filename} for {sub}')
+    print(f'Created {filename} for /r/{sub}')
     return filename
 
 def get_rules(sub, output):
     rules = reddit.subreddit(sub).rules
+    rule_count = 0
     for rule in rules:
-        # print(rule)
-        # print(rule.created_utc)
-        # print(rule.kind)
-        # print(rule.description)
+        rule_count += 1
         row = [rule.priority, rule.created_utc, rule.kind, rule.short_name, rule.description, rule.violation_reason]
         with open(output, 'a') as file:
             writer = csv.writer(file)
             writer.writerow(row)
+    print(f'Saved {rule_count} rules from /r/{sub} to {output}')
 
 def main():
     print('** get_rules.py | Retrieving Subreddit Rules **')
