@@ -25,7 +25,17 @@ Instead of placing Reddit credentials directly in the script, I use an external 
 
 ## Usage
 
-Good question!
+### Subreddit List
+
+Specify the names of the subreddits that you'd like to search for in `subreddits.txt`. Put one subreddit name per line. This list will be used within the other scripts
+
+### Rules
+
+Retrieve the rules for the specified subreddits, including their descriptions.
+
+`python3 get_rules.py`
+
+The script will create individual CSV files for each subreddit within `output/rules/`
 
 ## Notes
 
