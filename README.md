@@ -15,7 +15,9 @@ I've created this script for my own research purposes, and so I can't necessaril
 
 ### Reddit Authentication:
 
+You'll need to have a Reddit account and generate Oauth2 credentials in order to authenticate to the Reddit API
 
+Head to [https://www.reddit.com/prefs/apps/](https://www.reddit.com/prefs/apps/) to create an app
 
 ### praw.ini
 
