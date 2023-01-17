@@ -25,7 +25,9 @@ Instead of placing Reddit credentials directly in the script, I use an external 
 
 ## Usage
 
-Good question!
+### Subreddit List
+
+Specify the names of the subreddits that you'd like to search for in `subreddits.txt`. Put one subreddit name per line
 
 ## Notes
 
