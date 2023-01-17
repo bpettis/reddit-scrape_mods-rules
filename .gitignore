@@ -128,5 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# praw.ini config file
+praw.ini
+
 # macOS files
 .DS_Store
