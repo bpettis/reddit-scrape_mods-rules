@@ -131,5 +131,8 @@ dmypy.json
 # praw.ini config file
 praw.ini
 
+# Anything in the output directory
+output/*
+
 # macOS files
 .DS_Store
