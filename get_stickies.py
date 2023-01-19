@@ -23,7 +23,7 @@ def get_stickies(sub, output):
     # Specify which sticky to return. 1 appears at the top (default: 1).
     # https://praw.readthedocs.io/en/stable/code_overview/models/subreddit.html#praw.models.Subreddit.sticky
     counter = 1
-
+    lastid = ''
     while counter > 0:
         # Depreciation Notice
         # DeprecationWarning: Positional arguments for 'Subreddit.sticky' will no longer be supported in PRAW 8
@@ -31,6 +31,12 @@ def get_stickies(sub, output):
         print(f'Sticky #{str(counter)}')
         try:
             sticky = reddit.subreddit(sub).sticky(counter)
+
+            if (sticky.id == lastid):
+                break
+            else:
+                lastid = sticky.id
+
             row = [sticky.id, sticky.created_utc, sticky.author.name, sticky.title, sticky.url, sticky.selftext]
             with open(output, 'a') as file:
                 writer = csv.writer(file)
