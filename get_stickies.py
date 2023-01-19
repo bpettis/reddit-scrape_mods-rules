@@ -12,10 +12,10 @@ def get_subreddits():
     return subreddit_list
 
 def csv_setup(sub):
-    filename = "output/rules/" + sub + ".csv"
+    filename = "output/stickies/" + sub + ".csv"
     with open(filename, 'w') as file:
         writer = csv.writer(file)
-        writer.writerow(['priority', 'created', 'kind', 'short_name', 'description', 'violation_reason'])
+        writer.writerow(['id', 'created', 'author', 'title', 'url', 'text'])
     print(f'Created {filename} for /r/{sub}')
     return filename
 
@@ -31,7 +31,10 @@ def get_stickies(sub, output):
         print(f'Sticky #{str(counter)}')
         try:
             sticky = reddit.subreddit(sub).sticky(counter)
-            print(sticky.id)
+            row = [sticky.id, sticky.created_utc, sticky.author.name, sticky.title, sticky.url, sticky.selftext]
+            with open(output, 'a') as file:
+                writer = csv.writer(file)
+                writer.writerow(row)
             counter += 1
         except prawcore.exceptions.NotFound:
             print('Not found')
@@ -40,7 +43,7 @@ def get_stickies(sub, output):
             print(f'Got some other error: {type(e).__name__}')
             break
 
-    print(f'Saved {str(counter - 1)} stikies from /r/{sub} to {output}')
+    print(f'Saved {str(counter - 1)} stickies from /r/{sub} to {output}')
 
 def main():
     print('** get_stickies.py | Retrieving Stikied Posts **')
