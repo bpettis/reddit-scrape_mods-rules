@@ -32,7 +32,8 @@ Unless you change it, the script will try to output files into a directory named
 └── output
     ├── mods
     ├── rules
-    └── sidebars
+    ├── sidebars
+    └── stickies
 ```
 
 Please be sure to create these directories if they do not already exist (the entire `output` directory is excluded via `.gitignore`)
