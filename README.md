@@ -23,6 +23,21 @@ Head to [https://www.reddit.com/prefs/apps/](https://www.reddit.com/prefs/apps/)
 
 Instead of placing Reddit credentials directly in the script, I use an external [`praw.ini` file](https://praw.readthedocs.io/en/stable/getting_started/configuration/prawini.html#praw-ini) to save configuration information. Put your credentials there, and not in the script and/or repo
 
+### Output directories
+
+Unless you change it, the script will try to output files into a directory named `output` with subdirectories for each script/thing to save:
+
+```
+.
+└── output
+    ├── mods
+    ├── rules
+    └── sidebars
+```
+
+Please be sure to create these directories if they do not already exist (the entire `output` directory is excluded via `.gitignore`)
+
+
 ## Usage
 
 ### Subreddit List
@@ -36,6 +51,19 @@ Retrieve the rules for the specified subreddits, including their descriptions.
 `python3 get_rules.py`
 
 The script will create individual CSV files for each subreddit within `output/rules/`
+
+### Sidebars
+
+Retrieve the basic info from the sidebar, along with any TextAreas
+
+`python3 get_sidebars.py`
+
+
+### Mods
+
+`python3 get_mods.py`
+
+This currently doesn't work
 
 ## Notes
 
