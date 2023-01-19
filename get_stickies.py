@@ -23,14 +23,23 @@ def get_stickies(sub, output):
     # Specify which sticky to return. 1 appears at the top (default: 1).
     # https://praw.readthedocs.io/en/stable/code_overview/models/subreddit.html#praw.models.Subreddit.sticky
     counter = 1
-    rules = reddit.subreddit(sub).rules
-    for rule in rules:
-        rule_count += 1
-        row = [rule.priority, rule.created_utc, rule.kind, rule.short_name, rule.description, rule.violation_reason]
-        with open(output, 'a') as file:
-            writer = csv.writer(file)
-            writer.writerow(row)
-    print(f'Saved {rule_count} rules from /r/{sub} to {output}')
+
+    while counter > 0:
+        # Depreciation Notice
+        # DeprecationWarning: Positional arguments for 'Subreddit.sticky' will no longer be supported in PRAW 8
+        # Call this function with 'number' as a keyword argument.
+        print(f'Sticky #{str(counter)}')
+        try:
+            sticky = reddit.subreddit(sub).sticky(counter)
+            print(sticky.id)
+            counter += 1
+        except prawcore.NotFound:
+            print('Not found')
+            break
+        except Exception as e:
+            print(f'Got some other error: {e}')
+
+    print(f'Saved {str(counter - 1)} stikies from /r/{sub} to {output}')
 
 def main():
     print('** get_stickies.py | Retrieving Stikied Posts **')
