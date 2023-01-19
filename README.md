@@ -63,7 +63,7 @@ Retrieve the basic info from the sidebar, along with any TextAreas
 
 `python3 get_mods.py`
 
-This currently doesn't work
+This currently doesn't work - likely due to limitations with the Reddit API (e.g. I don't think you can view this info for subs that you're not a mod of?)
 
 ## Notes
 
