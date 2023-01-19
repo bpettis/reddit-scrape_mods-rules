@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 
-import praw, csv
+import praw, prawcore, csv
 
 reddit = praw.Reddit("modscraper")
 
@@ -33,11 +33,12 @@ def get_stickies(sub, output):
             sticky = reddit.subreddit(sub).sticky(counter)
             print(sticky.id)
             counter += 1
-        except prawcore.NotFound:
+        except prawcore.exceptions.NotFound:
             print('Not found')
             break
         except Exception as e:
-            print(f'Got some other error: {e}')
+            print(f'Got some other error: {type(e).__name__}')
+            break
 
     print(f'Saved {str(counter - 1)} stikies from /r/{sub} to {output}')
 
