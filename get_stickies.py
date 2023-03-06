@@ -81,6 +81,8 @@ def get_stickies(sub, output):
             break
 
     print(f'Saved {str(counter - 1)} stickies from /r/{sub} to {output}')
+
+    # if > 0 stickies saved AND if gcs == True, upload the file to GCS 
     if (counter > 1) and (use_gcs == True):
         logger.log_struct(
         {
@@ -88,7 +90,8 @@ def get_stickies(sub, output):
             "severity": "INFO",
             "count": str(counter - 1),
             "output": output,
-            "subreddit": sub
+            "subreddit": sub,
+            "target-metadata": "stickies"
         })
         blob_name = output[7:] # slice the "output/" at the beginning of the filename to be used as the blob name in Google Cloud
         try:
@@ -98,6 +101,7 @@ def get_stickies(sub, output):
                 {
                     "message": "Exception when Uploading to GCS",
                     "severity": "WARNING",
+                    "target-metadata": "stickies",
                     "type": str(type(e)),
                     "exception": str(e)
                 })
@@ -107,10 +111,10 @@ def get_stickies(sub, output):
             "message": "Not Uploading to GCS",
             "severity": "INFO",
             "subreddit": sub,
+            "target-metadata": "stickies",
             "count": str(counter - 1),
             "output": output
         })
-    # if > 0 stickies saved AND if gcs == True, upload the file to GCS 
 
 def upload_blob(filename, destination_blob_name):
     """Uploads a file to the bucket."""
@@ -136,6 +140,7 @@ def upload_blob(filename, destination_blob_name):
     logger.log_struct(
         {
             "message": "File was uploaded",
+            "target-metadata": "stickies",
             "severity": "INFO",
             "destination-name": destination_blob_name,
             "bucket-name": bucket_name
@@ -148,7 +153,8 @@ def main(event_data, context):
     logger.log_struct(
         {
             "message": "** get_stickies.py | Retrieving Stickied Posts **",
-            "severity": "NOTICE"
+            "severity": "NOTICE",
+            "target-metadata": "stickies"
         })
 
     subreddit_list = get_subreddits()
@@ -160,6 +166,7 @@ def main(event_data, context):
     logger.log_struct(
         {
             "message": "** get_stickies.py | DONE **",
+            "target-metadata": "stickies",
             "severity": "NOTICE"
         })
 
