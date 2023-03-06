@@ -1,6 +1,8 @@
 #! /usr/bin/python3
 
 import praw
+from datetime import datetime
+from pathlib import Path
 
 reddit = praw.Reddit("modscraper")
 
@@ -12,7 +14,9 @@ def get_subreddits():
     return subreddit_list
 
 def csv_setup(sub):
-    filename = "output/mods/" + sub + ".txt"
+    today = datetime.today().strftime('%Y-%m-%d')
+    Path("output/" + today + "/mods").mkdir(parents=True, exist_ok=True)
+    filename = "output/" + today + "/mods/" + sub + ".txt"
     with open(filename, 'w') as file:
         file.write('Moderators for /r/' + sub + '\n\n')
     print(f'Created {filename} for /r/{sub}')

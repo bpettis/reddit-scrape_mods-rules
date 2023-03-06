@@ -1,6 +1,8 @@
 #! /usr/bin/python3
 
 import praw, csv
+from datetime import datetime
+from pathlib import Path
 
 reddit = praw.Reddit("modscraper")
 
@@ -12,7 +14,9 @@ def get_subreddits():
     return subreddit_list
 
 def csv_setup(sub):
-    filename = "output/rules/" + sub + ".csv"
+    today = datetime.today().strftime('%Y-%m-%d')
+    Path("output/" + today + "/rules").mkdir(parents=True, exist_ok=True)
+    filename = "output/" + today + "/rules/" + sub + ".csv"
     with open(filename, 'w') as file:
         writer = csv.writer(file)
         writer.writerow(['priority', 'created', 'kind', 'short_name', 'description', 'violation_reason'])
