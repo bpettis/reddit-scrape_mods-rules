@@ -131,6 +131,9 @@ dmypy.json
 # praw.ini config file
 praw.ini
 
+# Directory used to store Google Cloud Key files
+/keys
+
 # Anything in the output directory
 output/*
 
